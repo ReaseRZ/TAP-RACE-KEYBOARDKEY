@@ -172,10 +172,10 @@ void setting()
 	}
 }
 
-void draw_object(const std::shared_ptr<ObjectCharacter>& ptr)
+void draw_object(const ObjectCharacter& ptr)
 {
-	gotoxy(ptr->get_position().X, ptr->get_position().Y); std::cout << " ";
-	gotoxy(ptr->get_position().X, ptr->get_position().Y); std::cout << ptr->get_character();
+	gotoxy(ptr.get_position().X, ptr.get_position().Y); std::cout << " ";
+	gotoxy(ptr.get_position().X, ptr.get_position().Y); std::cout << ptr.get_character();
 }
 
 int event_key()
@@ -188,9 +188,9 @@ void print_button_random_seed(const std::string& text, const int& CoordX, const 
 	gotoxy(CoordX, CoordY); std::cout << text << static_cast<char>(button);
 }
 
-void update_position_object(std::shared_ptr<ObjectCharacter>& ptr,int& CodeKeyboard)
+void update_position_object(ObjectCharacter& ptr,int& CodeKeyboard)
 {
-	Position changer = ptr->get_position();
+	Position changer = ptr.get_position();
 	if (_kbhit())
 	{
 		int character = event_key();
@@ -200,7 +200,7 @@ void update_position_object(std::shared_ptr<ObjectCharacter>& ptr,int& CodeKeybo
 			CodeKeyboard = RANDOM(MINCHARACTER, MAXCHARACTER);
 		}
 	}
-	ptr->set_position(changer);
+	ptr.set_position(changer);
 }
 
 void update_position_object_computer(std::shared_ptr<ObjectCharacter>& ptr,const bool& gameplay)
@@ -226,9 +226,9 @@ void update_position_object_computer(std::shared_ptr<ObjectCharacter>& ptr,const
 	}
 }
 
-void check_winner(const std::shared_ptr<ObjectCharacter>& ptr, bool& gameplay)
+void check_winner(const ObjectCharacter& ptr, bool& gameplay)
 {
-	if (ptr->get_position().X == LENAREA-1)
+	if (ptr.get_position().X == LENAREA-1)
 	{
 		gotoxy(0, 15); std::cout << "Complete !!!";
 		gameplay = false;
@@ -237,7 +237,6 @@ void check_winner(const std::shared_ptr<ObjectCharacter>& ptr, bool& gameplay)
 
 void game()
 {
-	
 	bool gameplay = true;
 	clock_t time = clock();
 	std::shared_ptr<ObjectCharacter>pPlayer = std::make_shared<ObjectCharacter>('P', "Player");
@@ -245,10 +244,10 @@ void game()
 	while (gameplay)
 	{
 		print_button_random_seed("Pressed Keyboard : ", 0, 13, PlayerButton);
-		update_position_object(pPlayer, PlayerButton);
-		draw_object(pPlayer);
+		update_position_object(*pPlayer, PlayerButton);
+		draw_object(*pPlayer);
 		draw_map();
-		check_winner(pPlayer, gameplay);
+		check_winner(*pPlayer, gameplay);
 		Sleep(25);
 		CLRSCRN;
 	}
