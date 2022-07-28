@@ -232,13 +232,14 @@ void check_winner(const std::shared_ptr<ObjectCharacter>& ptr, bool& gameplay)
 	{
 		gotoxy(0, 15); std::cout << "Complete !!!";
 		gameplay = false;
-		system("pause");
 	}
 }
 
 void game()
 {
+	
 	bool gameplay = true;
+	clock_t time = clock();
 	std::shared_ptr<ObjectCharacter>pPlayer = std::make_shared<ObjectCharacter>('P', "Player");
 	pPlayer->set_position(1, 5);
 	while (gameplay)
@@ -251,6 +252,9 @@ void game()
 		Sleep(25);
 		CLRSCRN;
 	}
+	time = clock() - time;
+	gotoxy(0, 12); std::cout << "You completed in in " << static_cast<float>(time) / CLOCKS_PER_SEC << " sec(s)\n";
+	system("pause");
 	pPlayer.reset();
 }
 
