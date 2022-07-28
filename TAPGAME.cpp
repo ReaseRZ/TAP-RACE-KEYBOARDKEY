@@ -81,7 +81,7 @@ public:
 	}
 };
 
-void gotoxy(const int& x,const int& y)
+void gotoxy(int x,int y)
 {
 	CursorPosition.X = x;
 	CursorPosition.Y = y;
@@ -129,7 +129,7 @@ void draw_map()
 }
 
 template<class T>
-T InputValue(const std::string& text)
+T InputValue(std::string text)
 {
 	T var;
 	std::cout << text; std::cin >> var;
@@ -183,7 +183,7 @@ int event_key()
 	return _getch();
 }
 
-void print_button_random_seed(const std::string& text, const int& CoordX, const int& CoordY, const int& button)
+void print_button_random_seed(const std::string& text, int CoordX, int CoordY, int button)
 {
 	gotoxy(CoordX, CoordY); std::cout << text << static_cast<char>(button);
 }
@@ -203,7 +203,7 @@ void update_position_object(ObjectCharacter& ptr,int& CodeKeyboard)
 	ptr.set_position(changer);
 }
 
-void update_position_object_computer(std::shared_ptr<ObjectCharacter>& ptr,const bool& gameplay)
+void update_position_object_computer(std::shared_ptr<ObjectCharacter>& ptr,bool gameplay)
 {
 	while (gameplay)
 	{
